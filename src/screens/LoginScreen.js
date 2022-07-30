@@ -31,7 +31,6 @@ const HomeScreen = () => {
     console.log(userInfo);
   }, []);
 
-
   async function onGoogleButtonPress() {
     // Get the users ID token
     const {idToken} = await GoogleSignin.signIn();
@@ -50,7 +49,7 @@ const HomeScreen = () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
       console.log(`Logged succes with ${email} `);
-      navigation.navigate('SearchScreen',{google:false});
+      navigation.navigate('SearchScreen', {google: false});
     } catch (e) {
       console.log(e);
     }

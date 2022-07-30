@@ -15,7 +15,7 @@ import style from '../style/searchScreenStyle';
 import useRestaurants from '../hooks/useRestaurants';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {increment} from '../redux/reduxProvider';
+
 import data2 from '../data/restaurants';
 import Location from '../components/Location';
 import {add} from 'react-native-reanimated';
