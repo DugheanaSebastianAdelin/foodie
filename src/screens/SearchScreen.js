@@ -28,11 +28,22 @@ const SearchScreen = ({navigation, route, city, parentToChild}) => {
   const {google} = route.params;
 
   const [getMoviesFromApi, data] = useRestaurants();
-
+  const dispatch = useDispatch();
+  const logged2 = useSelector(state => state.loginReducer.login);
+  console.log(logged2);
+  function setLoginValue() {
+    dispatch({
+      type: 'SET_LOGGIN_VALUE',
+      payload: {login: 'false'},
+    });
+  }
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
       auth().signOut();
+      setLoginValue();
+      navigation.navigate('Login');
+
       console.log('Logged OUT');
     } catch (error) {
       console.error(error);
@@ -41,7 +52,7 @@ const SearchScreen = ({navigation, route, city, parentToChild}) => {
 
   const location = 'Buzau';
 
-  const data3 = data2.restaurants;
+  const restaurants = data2.restaurants;
 
   useEffect(() => {
     auth().onAuthStateChanged(user => {
@@ -74,7 +85,14 @@ const SearchScreen = ({navigation, route, city, parentToChild}) => {
         source={require('../img/background.png')}
         style={{width: '100%', height: '100%'}}
         imageStyle={{opacity: 0.1}}>
-        <Text style={style.welcomeText}>{renderText()}</Text>
+        <View style={{justifyContent:'space-around',flexDirection:'row'}}>
+          <Text style={style.welcomeText}>{renderText()}</Text>
+          
+          <Button
+            title="log out"
+            onPress={signOut}
+            style={{width:20}}></Button>
+        </View>
         {/* 
         <Location city={city} /> */}
 
@@ -105,7 +123,9 @@ const SearchScreen = ({navigation, route, city, parentToChild}) => {
         </TouchableOpacity>
         <View style={{flex: 2}}>
           <FlatList
-            data={data3}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            data={restaurants}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity

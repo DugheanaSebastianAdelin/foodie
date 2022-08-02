@@ -1,5 +1,8 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import {
+  createNativeStackNavigator,
+  createSwitchNavigator,
+} from '@react-navigation/native-stack';
+import React, {useEffect, useState} from 'react';
 import LoginScreen from './src/screens/LoginScreen';
 import SearchScreen from './src/screens/SearchScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
@@ -15,7 +18,7 @@ const Navigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName={'Login'}
         screenOptions={{
           headerShown: false,
         }}>

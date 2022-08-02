@@ -12,11 +12,10 @@ import {TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styles from '../style/loginScreenStyle';
 import {useNavigation} from '@react-navigation/native';
-
-// import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useDispatch, useSelector} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-const HomeScreen = () => {
-  // const [loggedIn, setloggedIn] = useState(false);
+const HomeScreen = ({navigate}) => {
   const [userInfo, setuserInfo] = useState('');
   const [logged, setAuthenticated] = useState(false);
   const navigation = useNavigation();
@@ -49,18 +48,49 @@ const HomeScreen = () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
       console.log(`Logged succes with ${email} `);
-      navigation.navigate('SearchScreen', {google: false});
+      setLoginValue()
+      // navigation.navigate('SearchScreen', {google: false});
     } catch (e) {
       console.log(e);
     }
   };
 
-  auth().onAuthStateChanged(user => {
-    if (user) {
-      setAuthenticated(true);
-    } else {
-      setAuthenticated(false);
+  // auth().onAuthStateChanged(user => {
+  //   if (user) {
+  //     setAuthenticated(true);
+  //   } else {
+  //     setAuthenticated(false);
+  //   }
+  // });
+
+  const dispatch = useDispatch();
+
+  function setLoginValue() {
+    dispatch({
+      type: 'SET_LOGGIN_VALUE',
+      payload: {login: 'true'},
+    });
+  }
+
+  const logged2 = useSelector(state => state.loginReducer.login);
+  // console.log(logged2);
+  const isVisible = useIsFocused();
+  useEffect(() => {
+    console.log(logged2)
+    if (isVisible) {
+      console.log(logged)
+      if (logged2.login == 'true') {
+        navigation.navigate('SearchScreen', {
+         
+          user: userInfo,
+        });
+        
+      }
     }
+    // if(logged==true){
+      // navigation.navigate('SearchScreen', {google: false});
+
+    // }
   });
 
   return (
@@ -105,10 +135,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           style={[styles.button, styles.SignUP]}
-          onPress={() =>
-            // navigation.navigate('SignUp');
-            console.log('signup')
-          }>
+          onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.loginSignUpText}>Sign Up</Text>
         </TouchableOpacity>
 
@@ -118,7 +145,7 @@ const HomeScreen = () => {
               .then(res => {
                 // setloggedIn(true);
                 setuserInfo(res.user);
-
+                setLoginValue();
                 navigation.navigate('SearchScreen', {
                   google: true,
                   user: userInfo,
