@@ -1,43 +1,38 @@
 let defaultState = {
-    selectedItems: { items: [], restaurantName: "" },
-  };
+  selectedItems: {items: [], restaurantName: ''},
+  itemSelected: {},
+};
 
+let cartReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'ADD_TO_CART': {
+      let newState = {...state};
+      console.log(action.payload, 'payloaddd');
+      if (action.payload.checkboxValue == true) {
+        console.log('ADD TO CART');
 
+        newState.selectedItems = {
+          items: [...newState.selectedItems.items, action.payload],
 
-  
-  let cartReducer = (state = defaultState, action) => {
-    switch (action.type) {
-      case "ADD_TO_CART": {
-        let newState = { ...state };
-  
-        if (action.payload.checkboxValue) {
-          console.log("ADD TO CART");
-  
-          newState.selectedItems = {
-            items: [...newState.selectedItems.items, action.payload],
-            restaurantName: action.payload.restaurantName,
-          };
-        } else {
-          console.log("REMOVE FROM CART");
-          newState.selectedItems = {
-            items: [
-              ...newState.selectedItems.items.filter(
-                (item) => item.title !== action.payload.title
-              ),
-            ],
-            restaurantName: action.payload.restaurantName,
-          };
-        }
-        console.log(newState, "👉");
-        return newState;
+          restaurantName: action.payload.restaurantName,
+        };
+      } else {
+        console.log('REMOVE FROM CART');
+        newState.selectedItems = {
+          items: [
+            ...newState.selectedItems.items.filter(
+              item => item.id !== action.payload.id,
+            ),
+          ],
+          restaurantName: action.payload.restaurantName,
+        };
       }
-     
-  
-      default:
-        return state;
+      console.log(newState, '👉');
+      return newState;
     }
-  };
 
-
-  
-  export default cartReducer;
+    default:
+      return state;
+  }
+};
+export default cartReducer;

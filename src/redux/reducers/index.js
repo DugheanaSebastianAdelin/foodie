@@ -1,17 +1,12 @@
-import { combineReducers } from "redux";
-import addressReducer from "./addressReducer";
-import cartReducer from "./cartReducer";
-import loginReducer from "./loggedReducer";
-
-
-let reducers = combineReducers({
-    cartReducer:cartReducer,
-    addressReducer:addressReducer,
-    loginReducer:loginReducer,
-})
-
-const rootReducer = (state,action)=>{
-    return reducers(state,action)
-}
-
+// Imports: Dependencies
+import {combineReducers} from 'redux';
+// Imports: Reducers
+import authenticatorReducer from './authenticatorReducer';
+import cartReducer from './cartReducer';
+// Redux: Root Reducer
+const rootReducer = combineReducers({
+  auth: authenticatorReducer,
+  cart: cartReducer,
+});
+// Exports
 export default rootReducer;

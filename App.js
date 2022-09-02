@@ -1,20 +1,36 @@
 import 'react-native-gesture-handler';
 // import {createStackNavigator} from '@react-navigation-stack';
-import Navigator from './Navigator';
-import React from 'react';
-import Store from './src/redux/store';
-import {useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
-import configureStore from './src/redux/store';
-import {Login_unlogged} from './Navigator';
-import {NavigationContainer} from '@react-navigation/native';
-import {Home_logged} from './Navigator';
+import Navigator from './src/navigator/Navigator';
+import {store} from './src/redux/store/store';
 
+import firebase from '@react-native-firebase/app';
+
+// Your secondary Firebase project credentials...
+const credentials = {
+  apiKey: 'AIzaSyCCZSJC-Q9Lo-EonyxS19KViliNCrcR76I',
+  authDomain: 'foodie-app-72359.firebaseapp.com',
+  projectId: 'foodie-app-72359',
+  storageBucket: 'foodie-app-72359.appspot.com',
+  messagingSenderId: '771101847587',
+  appId: '1:771101847587:web:973e50fb2a5f833e2a0196',
+  databaseURL: '',
+};
+
+// await firebase.initializeApp(credentials);
 
 const App = () => {
-  const logged = false;
-  const store = configureStore();
+  const init = async () => {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(credentials);
+    } else {
+      firebase.app(); // if already initialized, use that one
+    }
+  };
+  useEffect(() => {
+    init();
+  }, []);
 
   return (
     <Provider store={store}>

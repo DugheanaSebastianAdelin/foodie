@@ -1,30 +1,30 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
-import RestaurantDetail from '../../screens/RestaurantDetail';
-import {useDispatch,useSelector} from 'react-redux';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-
-
-export default function Menu({item, restaurantName}) {
+import {connect, useDispatch} from 'react-redux';
+function Menu(props) {
+  // function Menu({item, restaurantName}) {
   const {title, ingredients, price} = item;
 
   const dispatch = useDispatch();
-  const selectItem = (item, checkboxValue) =>
-    dispatch({
-      type: 'ADD_TO_CART',
-      payload: {
-        ...item,
-        restaurantName: restaurantName,
-        checkboxValue: checkboxValue,
-      },
-    });
+  // const selectItem = (item, checkboxValue) =>
+  //   dispatch({
+  //     type: 'ADD_TO_CART',
+  //     payload: {
+  //       ...item,
+  //       restaurantName: restaurantName,
+  //       checkboxValue: checkboxValue,
+  //     },
+  //   });
 
-    const cartItems = useSelector(
-      (state) => state.cartReducer.selectedItems.items
-    );
-    console.log(cartItems)
-    const isFoodInCart = (food, cartItems) =>
-    Boolean(cartItems.find((item) => item.title === food.title));
+  // const cartItems = useSelector(state => state.cartReducer.selectedItems.items);
+  // console.log(cartItems);
+
+  const addToCart = () => {
+   console.log( props.reduxAddToCart());
+  };
+  const isFoodInCart = (food, cartItems) =>
+    Boolean(cartItems.find(item => item.title === food.title));
   return (
     <View style={{paddingTop: 5}}>
       <TouchableOpacity
@@ -42,7 +42,7 @@ export default function Menu({item, restaurantName}) {
             marginRight: 15,
           }}>
           <Image
-            source={require('../../img/restaurant1.png')}
+            source={require('../../../assets/img/restaurant1.png')}
             style={{height: 64, width: 75, borderRadius: 16}}
           />
         </View>
@@ -71,12 +71,10 @@ export default function Menu({item, restaurantName}) {
           <TouchableOpacity>
             <BouncyCheckbox
               iconStyle={{borderColor: 'red'}}
-              isChecked={isFoodInCart(item, cartItems)}
-            
-              onPress={(checkboxValue) => {
-               
-                  selectItem(item,checkboxValue);
-               
+              // isChecked={isFoodInCart(item, cartItems)}
+              onPress={checkboxValue => {
+                addToCart();
+                // selectItem(item, checkboxValue);
               }}
             />
           </TouchableOpacity>
@@ -85,3 +83,19 @@ export default function Menu({item, restaurantName}) {
     </View>
   );
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    reduxAddToCart: () =>
+      dispatch({
+        type: 'ADD_TO_CART_SAGA',
+        payload: {
+          ...item,
+          restaurantName: restaurantName,
+          checkboxValue: checkboxValue,
+        },
+      }),
+  };
+};
+
+export default connect(mapDispatchToProps)(Menu);
