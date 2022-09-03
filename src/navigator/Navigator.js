@@ -1,4 +1,4 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import CartScreen from '../screens/CartScreen/CartScreen';
 import VerifyLocation from '../screens/Location/Location';
@@ -7,7 +7,7 @@ import RestaurantDetail from '../screens/RestaurantDetail/RestaurantDetail';
 import SearchScreen from '../screens/SearchScreen/SearchScreen';
 import SignUpScreen from '../screens/SignUpScreen/SignUpScreen';
 
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import Practice from '../screens/practice';
 
 const Stack = createNativeStackNavigator();

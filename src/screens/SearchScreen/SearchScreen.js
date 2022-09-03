@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   Image,
   ImageBackground,
@@ -15,17 +15,11 @@ import useRestaurants from '../../hooks/useRestaurants';
 import Location from '../Location/Location';
 import style from './searchScreenStyle';
 const SearchScreen = props => {
-  // const [data, setData] = useState();
-  const [userEmail, setUserEmail] = useState('');
-  const [cart, setChart] = useState([]);
-
   const [getMoviesFromApi, data] = useRestaurants();
   const name = props.displayName;
   const email = props.email;
-  const uuid = props.uuid;
-  console.log(uuid, 'UUIDD');
+
   const navigation = useNavigation();
-  console.log(email, 'emaillllllllllllllllllll');
 
   const signOut = () => {
     props.reduxSignOut();
@@ -51,48 +45,27 @@ const SearchScreen = props => {
       return <Text>Hello {email}, Welcome back!</Text>;
     }
   };
-  useEffect(() => {
-    console.log(props);
-  });
 
   return (
-    <View
-      style={{
-        justifyContent: 'center',
-        alignContent: 'center',
-        marginTop: 10,
-        marginLeft: 10,
-        flex: 1,
-      }}>
+    <View style={style.mainView}>
       <ImageBackground
         source={require('../../../assets/img/background.png')}
         style={{flex: 1}}
         imageStyle={{opacity: 0.1}}>
         <View>
-          <Text style={style.welcomeText}>{renderText()}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={style.welcomeText}>{renderText()}</Text>
 
-          {/* <Button
-            title="log out"
-            onPress={signOut}
-            style={{width: 20}}></Button> */}
-          {/* </View> */}
+            <TouchableOpacity onPress={signOut} style={{marginLeft: 10}}>
+              <Text>OUT</Text>
+            </TouchableOpacity>
+          </View>
 
           <Location />
 
           <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#F3F4F9',
-                width: '80%',
-                marginLeft: 20,
-                borderRadius: 16,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingLeft: 20,
-                }}>
+            <View style={style.inputView}>
+              <View style={style.searchIconTextView}>
                 <Image
                   style={{}}
                   source={require('../../../assets/img/searchIcon.png')}
@@ -102,7 +75,7 @@ const SearchScreen = props => {
                   placeholder="Search for restaurants"
                 />
               </View>
-            </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
               style={{
@@ -116,11 +89,7 @@ const SearchScreen = props => {
             </TouchableOpacity>
           </View>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              marginTop: 10,
-            }}>
+            style={style.filtersView}>
             <TouchableOpacity>
               <Text style={style.titles}>Nearby </Text>
             </TouchableOpacity>
@@ -149,18 +118,13 @@ const SearchScreen = props => {
                   onPress={() =>
                     navigation.navigate('RestaurantDetail', {id: item.id})
                   }>
-                  <View style={style.itemView}>
+                  <View style={style.restaurantsView}>
                     <Image
-                      style={style.itemImage}
+                      style={style.restaurantsImage}
                       source={require('../../../assets/img/restaurant1.png')}></Image>
 
-                    <Text style={style.itemTitle}>{item.title}</Text>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-around',
-                      }}>
+                    <Text style={style.restaurantsTitle}>{item.title}</Text>
+                    <View style={style.restaurantsRatingsHeart}>
                       <Image
                         style={{width: 68, height: 12}}
                         source={require('../../../assets/img/ratings.png')}
@@ -184,54 +148,28 @@ const SearchScreen = props => {
             style={{flexWrap: 'wrap', flex: 1}}
           />
         </View>
-        <View style={{}}>
-          <Text
-            style={{
-              color: '#FD4D05',
-              fontFamily: 'DM Sans',
-              fontWeight: '400',
-              fontSize: 20,
-            }}>
-            Recommanded Dishes
-          </Text>
+        <View>
+          <Text style={style.recommandedDishesHeader}>Recommanded Dishes</Text>
 
           <FlatList
             data={data}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity>
-                  <View
-                    style={{
-                      backgroundColor: 'white',
-
-                      borderRadius: 16,
-
-                      margin: 5,
-                      shadowColor: 'rgba(32, 32, 32, 0.05)',
-                    }}>
+                  <View style={style.rdView}>
                     <Image
-                      style={{
-                        borderTopLeftRadius: 16,
-                        borderTopRightRadius: 16,
-
-                        height: 60,
-                        width: 74,
-                      }}
+                      style={style.rdImage}
                       source={{uri: item.strMealThumb}}></Image>
                     <View style={{}}>
                       <Text
                         adjustsFontSizeToFit={true}
                         numberOfLines={1}
-                        style={{fontSize: 8, fontFamily: 'DM Sans'}}>
+                        style={style.rdText}>
                         {item.strMeal}
                       </Text>
                     </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                      }}>
-                      <Text style={{fontSize: 8, color: '#FFD863'}}>100</Text>
+                    <View style={style.rdPriceHeartView}>
+                      <Text style={style.rdPrice}>100</Text>
                       <TouchableOpacity onPress={() => selectItem(item)}>
                         <Image
                           style={{}}

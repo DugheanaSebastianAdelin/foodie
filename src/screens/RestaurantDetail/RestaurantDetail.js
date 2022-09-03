@@ -4,7 +4,6 @@ import {
   Dimensions,
   Image,
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -13,6 +12,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {ScrollView} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import data from '../../../assets/mockData/restaurants';
+import styles from './restaurantDetailStyle';
 const RestaurantDetail = props => {
   const win = Dimensions.get('window');
 
@@ -60,32 +60,25 @@ const RestaurantDetail = props => {
   const isFoodInCart = (food, cartItems) => {
     return cartItems.find(item => item.id == food.id) ? true : false;
   };
-  console.log(restaurant, 'menu');
 
   return (
     <View style={{flex: 1}}>
       <Image
-        style={{width: '100%', height: '22%', flex: 0.3}}
+        style={styles.restaurantImage}
         source={require('../../../assets/img/restaurant1.png')}
       />
 
       <Text
         adjustsFontSizeToFit={true}
         numberOfLines={1}
-        style={{
-          fontFamily: 'DM Sans',
-          fontSize: 27,
-          lineHeight: 40,
-          color: '#241C1C',
-          paddingLeft: 10,
-        }}>
+        style={styles.restaurantName}>
         {restaurantName}
       </Text>
       <ScrollView style={{flex: 1}}>
         <StatusBar translucent backgroundColor="transparent" />
 
         <View style={{marginLeft: 10, marginRight: 10, flex: 1}}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.rowSpaceBetwin}>
             <View style={{flexDirection: 'row'}}>
               <Image
                 style={{width: 20, height: 20}}
@@ -114,21 +107,8 @@ const RestaurantDetail = props => {
               </View>
             </View>
 
-            <Text
-              style={{
-                color: '#FBB816',
-                fontWeight: '400',
-                fontSize: 16,
-                lineHeight: 20,
-              }}>
-              Adress
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: 'blue',
-              }}>
+            <Text style={styles.adress}>Adress</Text>
+            <View style={styles.rowSpaceBetwin}>
               <Text numberOfLines={3} style={{flex: 3}}>
                 {adress}
               </Text>
@@ -160,42 +140,16 @@ const RestaurantDetail = props => {
           {restaurant.map(item =>
             item.menu.combos.map((item2, index) => (
               <View style={{paddingTop: 5}}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    flexDirection: 'row',
-                    borderRadius: 16,
-                    maxHeight: 65,
-                  }}>
-                  <View
-                    style={{
-                      flexGrow: 0,
-                      flexShrink: 1,
-                      flexBasis: 70,
-                      marginRight: 15,
-                    }}>
+                <View style={styles.firstMenuView}>
+                  <View style={styles.secondMenuView}>
                     <Image
                       source={require('../../../assets/img/restaurant1.png')}
-                      style={{height: 64, width: 75, borderRadius: 16}}
+                      style={styles.menuImage}
                     />
                   </View>
-                  <View style={{flexGrow: 0, flexShrink: 1, flexBasis: 250}}>
-                    <Text
-                      style={{
-                        fontSize: 13.44,
-                        color: '#241C1C',
-                        fontWeight: '400',
-                        fontFamily: 'DM Sans',
-                      }}>
-                      {item2.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 8.57,
-                        color: '#979797',
-                        fontWeight: '400',
-                        fontFamily: 'DM Sans',
-                      }}>
+                  <View style={styles.titleView}>
+                    <Text style={styles.itemTitle}>{item2.title}</Text>
+                    <Text style={styles.itemIgredients}>
                       {item2.ingredients}
                     </Text>
                     <Text>{item2.index}</Text>
@@ -220,7 +174,7 @@ const RestaurantDetail = props => {
                       />
                     </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
+                </View>
               </View>
             )),
           )}
@@ -229,42 +183,16 @@ const RestaurantDetail = props => {
           {restaurant.map(item =>
             item.menu.drinks.map((item2, index) => (
               <View style={{paddingTop: 5}}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    flexDirection: 'row',
-                    borderRadius: 16,
-                    maxHeight: 65,
-                  }}>
-                  <View
-                    style={{
-                      flexGrow: 0,
-                      flexShrink: 1,
-                      flexBasis: 70,
-                      marginRight: 15,
-                    }}>
+                <View style={styles.firstMenuView}>
+                  <View style={styles.secondMenuView}>
                     <Image
                       source={require('../../../assets/img/restaurant1.png')}
-                      style={{height: 64, width: 75, borderRadius: 16}}
+                      style={styles.menuImage}
                     />
                   </View>
-                  <View style={{flexGrow: 0, flexShrink: 1, flexBasis: 250}}>
-                    <Text
-                      style={{
-                        fontSize: 13.44,
-                        color: '#241C1C',
-                        fontWeight: '400',
-                        fontFamily: 'DM Sans',
-                      }}>
-                      {item2.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 8.57,
-                        color: '#979797',
-                        fontWeight: '400',
-                        fontFamily: 'DM Sans',
-                      }}>
+                  <View style={styles.titleView}>
+                    <Text style={styles.itemTitle}>{item2.title}</Text>
+                    <Text style={styles.itemIgredients}>
                       {item2.ingredients}
                     </Text>
                     <Text>{item2.index}</Text>
@@ -285,12 +213,11 @@ const RestaurantDetail = props => {
                             item2.img,
                             item2.category,
                           );
-                          console.log(checkboxValue, 'checkbox valueeeeeeeeee');
                         }}
                       />
                     </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
+                </View>
               </View>
             )),
           )}
@@ -331,31 +258,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantDetail);
-
-const styles = StyleSheet.create({
-  rowSpaceBetwin: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  secondView2: {
-    top: 15,
-  },
-  viewTextMap: {
-    height: 20,
-  },
-  colorRed: {
-    color: '#FD4D05',
-    fontFamily: 'DM Sans',
-    fontSize: 16.9,
-    lineHeight: 20.33,
-    fontWeight: '400',
-  },
-  lightGrey: {
-    color: '#979797',
-    fontFamily: 'DM Sans',
-    fontSize: 16,
-    lineHeight: 20,
-    fontWeight: '400',
-  },
-});

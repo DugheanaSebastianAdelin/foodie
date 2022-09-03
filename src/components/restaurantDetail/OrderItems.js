@@ -60,13 +60,6 @@ export default function OrderItem({item}) {
           </View>
         </View>
       </View>
-      {/* <Text>{category}</Text>
-      <View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontWeight: '600', fontSize: 16}}>{name}</Text>
-          <Text style={{opacity: 0.7, fontSize: 16}}>{price}</Text>
-        </View>
-      </View> */}
     </View>
   );
 }

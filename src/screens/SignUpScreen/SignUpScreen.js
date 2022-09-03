@@ -23,10 +23,15 @@ const SignUPScreen = props => {
   const register = () => {
     return props.reduxRegister(email, password);
   };
+
   const login = () => {
-    console.log(email, 'email');
     return props.reduxLogin(email, password, false);
   };
+
+  // const login = () => {
+  //   return props.reduxLogin(email, password, false)
+
+  // };
 
   return (
     <ImageBackground

@@ -49,13 +49,6 @@ const LoginScreen = props => {
   });
   console.log(uid, 'uuiidd');
 
-  //
-  //
-
-  //de realizat sign up la buton
-
-  ///
-  ///
   return (
     <ImageBackground
       source={require('../../../assets/img/background.png')}
@@ -98,39 +91,15 @@ const LoginScreen = props => {
       <View style={{marginTop: 7}}>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginBottom: 5,
-          marginTop: 15,
-        }}>
+      <View style={styles.socialAuthView}>
         <TouchableOpacity onPress={() => googleLogin()}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image source={require('../../../assets/img/googleLogo.png')} />
-          </View>
+          <Image source={require('../../../assets/img/googleLogo.png')} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image source={require('../../../assets/img/fbLogo.png')} />
-          </View>
+          <Image source={require('../../../assets/img/fbLogo.png')} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image source={require('../../../assets/img/appleLogo.png')} />
-          </View>
+          <Image source={require('../../../assets/img/appleLogo.png')} />
         </TouchableOpacity>
       </View>
     </ImageBackground>
