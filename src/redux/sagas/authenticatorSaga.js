@@ -130,6 +130,7 @@ function* register(action) {
         // uuid: data.user.uid,
       },
     });
+    
   } catch (error) {
     console.log(error);
     yield put({

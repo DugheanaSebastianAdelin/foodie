@@ -1,37 +1,57 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ImageBackground,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {connect} from 'react-redux';
-const SignUPScreen = props => {
+import styles from '../LoginScreen/loginScreenStyle';
+const SignUpScreen = props => {
+  const [userInfo, setuserInfo] = useState('');
+
+  const uid = props.userToken;
+  const navigation = useNavigation();
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['email'],
+      webClientId:
+        '771101847587-tu8c19po1jvudpc2335u7kmq79gmd22n.apps.googleusercontent.com',
+
+      offlineAccess: true,
+    });
+    console.log(userInfo);
+  }, []);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const error = props.error;
+  const Login = () => {
+    console.log(email, 'email');
+    props.reduxLogin(email, password, false);
+  };
 
-  console.log(error, 'error');
+  const googleLogin = () => {
+    props.reduxLogin(email, password, true);
+  };
 
-  const navigation = useNavigation();
-
-  const register = () => {
+  const Register = () => {
     return props.reduxRegister(email, password);
   };
 
-  const login = () => {
-    return props.reduxLogin(email, password, false);
-  };
-
-  // const login = () => {
-  //   return props.reduxLogin(email, password, false)
-
-  // };
+  const isVisible = useIsFocused();
+  useEffect(() => {
+    if (isVisible) {
+      if (uid != '' && uid) {
+        navigation.navigate('SearchScreen');
+      }
+    }
+  });
+  console.log(uid, 'uuiidd');
 
   return (
     <ImageBackground
@@ -44,98 +64,53 @@ const SignUPScreen = props => {
           source={require('../../../assets/img/foodie.png')}
         />
       </View>
-
-      <View
-        style={{
-          backgroundColor: '#F5F4F2',
-          borderRadius: 32,
-          justifyContent: 'center',
-          marginTop: 10,
-          marginHorizontal: 28,
-          height: '9%',
-        }}>
+      <View style={styles.emailPasswordView}>
         <TextInput
-          style={{
-            marginLeft: 16,
-            marginTop: 10,
-            marginBottom: 10,
-            fontFamily: 'Mulish',
-            fontSize: 18,
-            fontWeight: '400',
-            lineHeight: 23,
-            letterSpacing: 0,
-            textAlign: 'left',
-          }}
+          style={styles.textInputEmailPassword}
           placeholder="Email"
           placeholderTextColor="#241C1C"
           onChangeText={newText => setEmail(newText)}
           defaultValue={email}
         />
       </View>
-
-      <View
-        style={{
-          backgroundColor: '#F5F4F2',
-          borderRadius: 32,
-          justifyContent: 'center',
-          marginTop: 10,
-          marginHorizontal: 28,
-          height: '9%',
-        }}>
+      <View style={styles.emailPasswordView}>
         <TextInput
+          style={styles.textInputEmailPassword}
+          placeholder="Password"
           textContentType="password"
           secureTextEntry={true}
-          style={{
-            marginLeft: 16,
-            marginTop: 10,
-            marginBottom: 10,
-            fontFamily: 'Mulish',
-            fontSize: 18,
-            fontWeight: '400',
-            lineHeight: 23,
-            letterSpacing: 0,
-            textAlign: 'left',
-          }}
-          placeholder="Password"
           placeholderTextColor="#241C1C"
           onChangeText={newText => setPassword(newText)}
           defaultValue={password}
         />
       </View>
+      <TouchableOpacity style={styles.loginTouchable} onPress={Register}>
+        <Text style={styles.loginText}>SIGN UP</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.signUpTouchable} onPress={Login}>
+        <Text style={styles.signUpText}>Log in</Text>
+      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={{
-          borderRadius: 32,
-          backgroundColor: '#FD4D05',
-          justifyContent: 'center',
-          marginTop: 20,
-          marginHorizontal: 28,
-          height: '9%',
-        }}
-        onPress={register}>
-        <Text style={styles.loginSignUpText}>Register</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          borderRadius: 32,
-          backgroundColor: '#FD4D05',
-          justifyContent: 'center',
-          marginTop: 20,
-          marginHorizontal: 28,
-          height: '9%',
-        }}
-        onPress={login}>
-        <Text style={styles.loginSignUpText}>Login</Text>
-      </TouchableOpacity>
+      <View style={styles.socialAuthView}>
+        <TouchableOpacity onPress={() => googleLogin()}>
+          <Image source={require('../../../assets/img/googleLogo.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={require('../../../assets/img/fbLogo.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={require('../../../assets/img/appleLogo.png')} />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 };
 
 const mapStateToProps = state => {
-  console.log('stateSignUp', state);
-  return {error: state.auth.error};
+  console.log('state@$%#####', state);
+  return {userToken: state.auth.userToken};
 };
-// navigation.navigate('Search')
+
 const mapDispatchToProps = dispatch => {
   return {
     reduxRegister: (email, password) =>
@@ -158,58 +133,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUPScreen);
-
-const styles = StyleSheet.create({
-  logo: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  logoContainer: {
-    flex: 1,
-  },
-  button: {
-    borderRadius: 32,
-    backgroundColor: '#FD4D05',
-    width: 319,
-    height: 63,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  textInput: {
-    fontFamily: 'Mulish',
-    fontStyle: 'regular',
-    fontSize: 18,
-  },
-  image: {
-    flex: 1,
-  },
-
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  emailPassword: {
-    backgroundColor: '#F5F4F2',
-    borderRadius: 32,
-    width: 319,
-    height: 63,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-
-  loginSignUpText: {
-    fontFamily: 'DM Sans',
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#F5F4F2',
-    textAlign: 'center',
-  },
-});
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);
