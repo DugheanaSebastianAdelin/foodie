@@ -4,15 +4,9 @@ import {connect} from 'react-redux';
 import OrderItem from '../../components/restaurantDetail/OrderItems';
 
 const CartScreen = props => {
-  // const {items, restaurantName} = useSelector(
-  //   state => state.cartReducer.selectedItems,
-  // );
-
-  // console.log(items);
-  // console.log(restaurantName)
 
   const items = props.info;
-  console.log(items, 'items');
+
   return (
     <View>
       <ImageBackground

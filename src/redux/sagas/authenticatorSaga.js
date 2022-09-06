@@ -2,6 +2,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {put, takeLatest} from 'redux-saga/effects';
+
 const loginWithEmail = async (email, password) => {
   return await auth().signInWithEmailAndPassword(email, password);
 };
@@ -34,8 +35,6 @@ function* login(action) {
       ? yield loginWithGoogle()
       : yield loginWithEmail(action.payload.email, action.payload.password);
 
-    console.log('aici vedem data!!!!!!', data);
-    console.log(data.user.displayName, 'display nameeeeeeeeeeeeeeeeee');
     if (data.error) {
       yield put({
         type: 'ERROR',
@@ -81,34 +80,24 @@ function* register(action) {
     });
     console.log(action.payload, 'response');
 
-    const response = register2(action.payload.email, action.payload.password);
+    const response = yield register2(
+      action.payload.email,
+      action.payload.password,
+    );
     // console.log(action.payload, 'response');
     console.log(response, 'responseeeeeeeeee222');
 
-    let userData;
+    yield firestore()
+      .collection('users')
+      .doc(response.user.uid)
+      .set({email: action.payload.email});
 
-    const data = Promise.resolve(response).then(res => {
-      console.log(res.user.uid, 'ressss');
-      if (response.error) {
-        throw response.error;
-      }
-      firestore()
-        .collection('users')
-        .doc(res.user.uid)
-        .set({email: action.payload.email});
-      loginWithEmail(action.payload.email, action.payload.password);
+    yield loginWithEmail(action.payload.email, action.payload.password);
+    const data = yield firestore().collection('users').doc(response.user.uid).get()
+    console.log(data, '@@@ data');
 
-      const getData = firestore().collection('users').doc(res.user.uid).get();
-
-      // .then(doc => {
-      //   console.log(doc, 'data firestore');
-      //   return doc.docs.map(item => {
-      //     return item.data();
-      //   });
-      // });
-      return getData.data();
-    });
-    console.log(data, 'DATAAAAAAAAAAAAAAA');
+    console.log(data.email, '@@@ data');
+    
 
     yield put({
       type: 'LOGIN_WITH_EMAIL_AND_PASSWORD',
@@ -130,7 +119,6 @@ function* register(action) {
         // uuid: data.user.uid,
       },
     });
-    
   } catch (error) {
     console.log(error);
     yield put({
