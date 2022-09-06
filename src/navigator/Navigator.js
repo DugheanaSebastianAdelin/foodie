@@ -8,7 +8,6 @@ import SearchScreen from '../screens/SearchScreen/SearchScreen';
 import SignUpScreen from '../screens/SignUpScreen/SignUpScreen';
 
 import {NavigationContainer} from '@react-navigation/native';
-import Practice from '../screens/practice';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,14 +19,11 @@ const Navigator = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Practice" component={Practice} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
         <Stack.Screen name="Location" component={VerifyLocation} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
-
         <Stack.Screen name="Cart" component={CartScreen} />
-
         <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
     </NavigationContainer>

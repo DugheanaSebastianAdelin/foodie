@@ -3,7 +3,7 @@ import {useState} from 'react';
 export default () => {
   const [data, setData] = useState([]);
 
-  const getMoviesFromApi = () => {
+  const getRecommandedDishes = () => {
     return fetch(
       'https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian',
     )
@@ -16,5 +16,5 @@ export default () => {
       });
   };
 
-  return [getMoviesFromApi, data];
+  return [getRecommandedDishes, data];
 };

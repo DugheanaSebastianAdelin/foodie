@@ -85,7 +85,7 @@ const style = StyleSheet.create({
     fontSize: 8,
     fontFamily: 'DM Sans',
   },
-  rdrdPriceHeartView: {
+  rdPriceHeartView: {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },

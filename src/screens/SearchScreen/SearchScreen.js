@@ -1,4 +1,3 @@
-import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {
@@ -15,7 +14,7 @@ import useRestaurants from '../../hooks/useRestaurants';
 import Location from '../Location/Location';
 import style from './searchScreenStyle';
 const SearchScreen = props => {
-  const [getMoviesFromApi, data] = useRestaurants();
+  const [getRecommandedDishes, data] = useRestaurants();
   const name = props.displayName;
   const email = props.email;
 
@@ -30,12 +29,7 @@ const SearchScreen = props => {
   const restaurants = data2.restaurants;
 
   useEffect(() => {
-    auth().onAuthStateChanged(user => {
-      if (user) {
-        setUserEmail(user.email);
-      }
-    });
-    getMoviesFromApi();
+    getRecommandedDishes();
   }, []);
 
   const renderText = () => {
@@ -58,6 +52,13 @@ const SearchScreen = props => {
 
             <TouchableOpacity onPress={signOut} style={{marginLeft: 10}}>
               <Text>OUT</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Cart');
+              }}
+              style={{marginLeft: 10}}>
+              <Text>CART</Text>
             </TouchableOpacity>
           </View>
 
@@ -88,8 +89,7 @@ const SearchScreen = props => {
               />
             </TouchableOpacity>
           </View>
-          <View
-            style={style.filtersView}>
+          <View style={style.filtersView}>
             <TouchableOpacity>
               <Text style={style.titles}>Nearby </Text>
             </TouchableOpacity>
@@ -172,7 +172,6 @@ const SearchScreen = props => {
                       <Text style={style.rdPrice}>100</Text>
                       <TouchableOpacity onPress={() => selectItem(item)}>
                         <Image
-                          style={{}}
                           source={require('../../../assets/img/heart-small.png')}
                         />
                       </TouchableOpacity>

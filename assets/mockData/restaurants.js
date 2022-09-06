@@ -176,7 +176,7 @@ const data = {
       },
     },
     {
-      id: 13,
+      id: 14,
       title: 'Sebi2',
       location: 'Lagos',
       review: 4.5,
