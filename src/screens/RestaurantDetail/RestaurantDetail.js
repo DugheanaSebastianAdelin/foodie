@@ -1,20 +1,13 @@
 import {useRoute} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {
-  Dimensions,
-  Image,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {ScrollView} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import data from '../../../assets/mockData/restaurants';
 import styles from './restaurantDetailStyle';
 const RestaurantDetail = props => {
-  const win = Dimensions.get('window');
+  // const win = Dimensions.get('window');
 
   const addToCart = (
     id2,
@@ -138,8 +131,8 @@ const RestaurantDetail = props => {
           </View>
 
           {restaurant.map(item =>
-            item.menu.combos.map((item2, index) => (
-              <View style={{paddingTop: 5}}>
+            item.menu.combos.map(item2 => (
+              <View style={{paddingTop: 5}} key={item2.id}>
                 <View style={styles.firstMenuView}>
                   <View style={styles.secondMenuView}>
                     <Image
@@ -152,7 +145,6 @@ const RestaurantDetail = props => {
                     <Text style={styles.itemIgredients}>
                       {item2.ingredients}
                     </Text>
-                    <Text>{item2.index}</Text>
                   </View>
                   <View style={{flexGrow: 1, flexShrink: 0, flexBasis: 0}}>
                     <Text>{item2.price} $</Text>
@@ -181,8 +173,8 @@ const RestaurantDetail = props => {
 
           <Text>Drinks</Text>
           {restaurant.map(item =>
-            item.menu.drinks.map((item2, index) => (
-              <View style={{paddingTop: 5}}>
+            item.menu.drinks.map(item2 => (
+              <View style={{paddingTop: 5}} key={item2.id}>
                 <View style={styles.firstMenuView}>
                   <View style={styles.secondMenuView}>
                     <Image
@@ -195,7 +187,6 @@ const RestaurantDetail = props => {
                     <Text style={styles.itemIgredients}>
                       {item2.ingredients}
                     </Text>
-                    <Text>{item2.index}</Text>
                   </View>
                   <View style={{flexGrow: 1, flexShrink: 0, flexBasis: 0}}>
                     <Text>{item2.price} $</Text>

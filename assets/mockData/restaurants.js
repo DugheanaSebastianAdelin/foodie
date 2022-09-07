@@ -124,7 +124,7 @@ const data = {
       },
     },
     {
-      id: 13,
+      id: 99,
       title: 'Sebi2',
       location: 'Lagos',
       review: 4.5,
@@ -157,7 +157,7 @@ const data = {
         ],
         drinks: [
           {
-            id: 17,
+            id: 86,
             title: 'Lemonade',
             ingredients: 'Lemon juice,sugar',
             price: 11,
@@ -165,7 +165,7 @@ const data = {
             category: 'drinks',
           },
           {
-            id: 18,
+            id: 48,
             title: 'Beer',
             ingredients: 'beer 5%',
             price: 15,
@@ -176,7 +176,7 @@ const data = {
       },
     },
     {
-      id: 14,
+      id: 98,
       title: 'Sebi2',
       location: 'Lagos',
       review: 4.5,
@@ -189,7 +189,7 @@ const data = {
       menu: {
         combos: [
           {
-            id: 7,
+            id: 251,
             title: 'Biobeles Brunch2',
             ingredients:
               'Waffles,strawberries,sausage,mushrooms,baked beans,toast and grilled tomatoes',
@@ -198,7 +198,7 @@ const data = {
             category: 'combos',
           },
           {
-            id: 8,
+            id: 521,
             title: 'Biobeles Brunch3',
             ingredients:
               'Waffles,strawberries,sausage,mushrooms,baked beans,toast and grilled tomatoes',

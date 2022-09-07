@@ -93,11 +93,15 @@ function* register(action) {
       .set({email: action.payload.email});
 
     yield loginWithEmail(action.payload.email, action.payload.password);
-    const data = yield firestore().collection('users').doc(response.user.uid).get()
+    const data = yield firestore()
+      .collection('users')
+      .doc(response.user.uid)
+      .get();
+    const newData = data.getData();
+    console.log(newData, 'newData $$$');
     console.log(data, '@@@ data');
 
     console.log(data.email, '@@@ data');
-    
 
     yield put({
       type: 'LOGIN_WITH_EMAIL_AND_PASSWORD',

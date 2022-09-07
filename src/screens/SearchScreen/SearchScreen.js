@@ -15,6 +15,7 @@ import Location from '../Location/Location';
 import style from './searchScreenStyle';
 const SearchScreen = props => {
   const [getRecommandedDishes, data] = useRestaurants();
+  console.log(data, 'dataaa$$$');
   const name = props.displayName;
   const email = props.email;
 
@@ -52,13 +53,6 @@ const SearchScreen = props => {
 
             <TouchableOpacity onPress={signOut} style={{marginLeft: 10}}>
               <Text>OUT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Cart');
-              }}
-              style={{marginLeft: 10}}>
-              <Text>CART</Text>
             </TouchableOpacity>
           </View>
 
@@ -112,6 +106,12 @@ const SearchScreen = props => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={restaurants}
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+            }}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
@@ -138,21 +138,14 @@ const SearchScreen = props => {
                 </TouchableOpacity>
               );
             }}
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-            }}
             keyExtractor={Restaurant => Restaurant.id}
-            style={{flexWrap: 'wrap', flex: 1}}
           />
         </View>
         <View>
           <Text style={style.recommandedDishesHeader}>Recommanded Dishes</Text>
 
           <FlatList
-            data={data}
+            data={data.meals}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity>

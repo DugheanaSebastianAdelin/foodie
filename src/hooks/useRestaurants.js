@@ -1,20 +1,14 @@
 import {useState} from 'react';
-
 export default () => {
   const [data, setData] = useState([]);
 
-  const getRecommandedDishes = () => {
-    return fetch(
+  const getRecommandedDishes = async () => {
+    const response = await fetch(
       'https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian',
-    )
-      .then(response => response.json())
-      .then(json => {
-        setData(json.meals);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
+    );
+    const data2 = await response.json();
 
+    setData(data2);
+  };
   return [getRecommandedDishes, data];
 };

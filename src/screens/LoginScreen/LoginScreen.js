@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import {connect} from 'react-redux';
 import styles from './loginScreenStyle';
 const LoginScreen = props => {
@@ -69,6 +70,7 @@ const LoginScreen = props => {
           defaultValue={email}
         />
       </View>
+
       <View style={styles.emailPasswordView}>
         <TextInput
           style={styles.textInputEmailPassword}
@@ -83,11 +85,13 @@ const LoginScreen = props => {
       <TouchableOpacity style={styles.loginTouchable} onPress={Login}>
         <Text style={styles.loginText}>LOG IN</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.signUpTouchable}
         onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.signUpText}>Sign Up</Text>
       </TouchableOpacity>
+
       <View style={{marginTop: 7}}>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </View>

@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 28,
     height: '9%',
+
   },
   textInputEmailPassword: {
     marginLeft: 16,
@@ -62,12 +63,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#241C1C',
   },
-  socialAuthView:{
+  socialAuthView: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 5,
     marginTop: 15,
-  }
+  },
 });
 
 export default styles;
