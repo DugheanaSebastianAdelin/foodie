@@ -11,7 +11,7 @@ import {FlatList, TextInput} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import data2 from '../../../assets/mockData/restaurants';
 import useRestaurants from '../../hooks/useRestaurants';
-import Location from '../Location/Location';
+import Location from '../../components/Location/Location';
 import style from './searchScreenStyle';
 const SearchScreen = props => {
   const [getRecommandedDishes, data] = useRestaurants();

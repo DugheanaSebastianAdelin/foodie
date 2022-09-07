@@ -1,6 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import VerifyLocation from '../screens/Location/Location';
+import VerifyLocation from '../components/Location/Location';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RestaurantDetail from '../screens/RestaurantDetail/RestaurantDetail';
 import SearchScreen from '../screens/SearchScreen/SearchScreen';
