@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-
 const style = StyleSheet.create({
   mainView: {
     justifyContent: 'center',
@@ -92,6 +91,39 @@ const style = StyleSheet.create({
   rdPrice: {
     fontSize: 8,
     color: '#FFD863',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  textInput: {
+    paddingLeft: 20,
+  },
+  filterTouchable: {
+    alignSelf: 'center',
+    marginLeft: 10,
+  },
+
+  ratings: {
+    width: 68,
+    height: 12,
+  },
+  heart: {
+    width: 24,
+    height: 24,
+  },
+  flatlistContainerStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  restaurantsFlatListView: {
+    marginHorizontal: 20,
+
+    height: '60%',
+    justifyContent: 'center', //Centered horizontally
+    alignItems: 'center', //Centered vertically
+    // flex: 1,
   },
 });
 

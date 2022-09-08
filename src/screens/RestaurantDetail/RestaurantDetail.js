@@ -55,7 +55,7 @@ const RestaurantDetail = props => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.mainView}>
       <Image
         style={styles.restaurantImage}
         source={require('../../../assets/img/restaurant1.png')}
@@ -67,25 +67,25 @@ const RestaurantDetail = props => {
         style={styles.restaurantName}>
         {restaurantName}
       </Text>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView >
         <StatusBar translucent backgroundColor="transparent" />
 
-        <View style={{marginLeft: 10, marginRight: 10, flex: 1}}>
+        <View style={styles.secondPartOfScreen}>
           <View style={styles.rowSpaceBetwin}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={styles.row}>
               <Image
-                style={{width: 20, height: 20}}
+                style={styles.locationImage}
                 source={require('../../../assets/img/location.png')}
               />
               <Text style={styles.colorRed}>{location}</Text>
             </View>
             <Image
-              style={{width: 68, height: 12}}
+              style={styles.ratings}
               source={require('../../../assets/img/ratings.png')}
             />
           </View>
-          <View style={{margin: 5}}>
-            <View style={{marginBottom: 10}}>
+          <View style={styles.margin5}>
+            <View style={styles.marginBottom}>
               <View style={styles.rowSpaceBetwin}>
                 <Text style={styles.lightGrey}>Cuisine</Text>
                 <Text style={styles.colorRed}>{cuisine}</Text>
@@ -102,15 +102,15 @@ const RestaurantDetail = props => {
 
             <Text style={styles.adress}>Adress</Text>
             <View style={styles.rowSpaceBetwin}>
-              <Text numberOfLines={3} style={{flex: 3}}>
+              <Text numberOfLines={3} >
                 {adress}
               </Text>
               <Image
-                style={{height: 88.55, width: 92, borderRadius: 15}}
+                style={styles.addressImage}
                 source={require('../../../assets/img/restaurant1.png')}
               />
             </View>
-            <View style={{margin: 5, marginTop: 15, marginBottom: 15}}>
+            <View style={styles.phoneEmailWebsiteView}>
               <View style={styles.rowSpaceBetwin}>
                 <Text style={styles.lightGrey}>Phone</Text>
                 <Text style={styles.colorRed}>{phone}</Text>
@@ -132,7 +132,7 @@ const RestaurantDetail = props => {
 
           {restaurant.map(item =>
             item.menu.combos.map(item2 => (
-              <View style={{paddingTop: 5}} key={item2.id}>
+              <View style={styles.menuView} key={item2.id}>
                 <View style={styles.firstMenuView}>
                   <View style={styles.secondMenuView}>
                     <Image
@@ -146,7 +146,7 @@ const RestaurantDetail = props => {
                       {item2.ingredients}
                     </Text>
                   </View>
-                  <View style={{flexGrow: 1, flexShrink: 0, flexBasis: 0}}>
+                  <View style={styles.itemView}>
                     <Text>{item2.price} $</Text>
                     <TouchableOpacity>
                       <BouncyCheckbox
@@ -174,7 +174,7 @@ const RestaurantDetail = props => {
           <Text>Drinks</Text>
           {restaurant.map(item =>
             item.menu.drinks.map(item2 => (
-              <View style={{paddingTop: 5}} key={item2.id}>
+              <View style={styles.menuView} key={item2.id}>
                 <View style={styles.firstMenuView}>
                   <View style={styles.secondMenuView}>
                     <Image
@@ -188,7 +188,7 @@ const RestaurantDetail = props => {
                       {item2.ingredients}
                     </Text>
                   </View>
-                  <View style={{flexGrow: 1, flexShrink: 0, flexBasis: 0}}>
+                  <View style={styles.itemView}>
                     <Text>{item2.price} $</Text>
                     <TouchableOpacity>
                       <BouncyCheckbox

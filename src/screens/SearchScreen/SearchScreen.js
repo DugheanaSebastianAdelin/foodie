@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {FlatList, TextInput} from 'react-native-gesture-handler';
+import {FlatList, ScrollView, TextInput} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import data2 from '../../../assets/mockData/restaurants';
-import useRestaurants from '../../hooks/useRestaurants';
 import Location from '../../components/Location/Location';
+import useRestaurants from '../../hooks/useRestaurants';
 import style from './searchScreenStyle';
 const SearchScreen = props => {
   const [getRecommandedDishes, data] = useRestaurants();
@@ -44,11 +44,11 @@ const SearchScreen = props => {
   return (
     <View style={style.mainView}>
       <ImageBackground
-        source={require('../../../assets/img/background.png')}
         style={{flex: 1}}
+        source={require('../../../assets/img/background.png')}
         imageStyle={{opacity: 0.1}}>
         <View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={style.row}>
             <Text style={style.welcomeText}>{renderText()}</Text>
 
             <TouchableOpacity onPress={signOut} style={{marginLeft: 10}}>
@@ -58,29 +58,19 @@ const SearchScreen = props => {
 
           <Location />
 
-          <View style={{flexDirection: 'row'}}>
+          <View style={style.row}>
             <View style={style.inputView}>
               <View style={style.searchIconTextView}>
-                <Image
-                  style={{}}
-                  source={require('../../../assets/img/searchIcon.png')}
-                />
+                <Image source={require('../../../assets/img/searchIcon.png')} />
                 <TextInput
-                  style={{height: 56, paddingLeft: 20}}
+                  style={style.textInput}
                   placeholder="Search for restaurants"
                 />
               </View>
             </View>
 
-            <TouchableOpacity
-              style={{
-                alignSelf: 'center',
-                marginLeft: 10,
-              }}>
-              <Image
-                style={{alignSelf: 'center'}}
-                source={require('../../../assets/img/filter.png')}
-              />
+            <TouchableOpacity style={style.filterTouchable}>
+              <Image source={require('../../../assets/img/filter.png')} />
             </TouchableOpacity>
           </View>
           <View style={style.filtersView}>
@@ -101,17 +91,12 @@ const SearchScreen = props => {
           </View>
         </View>
 
-        <View style={{marginHorizontal: 20, height: '60%'}}>
+        <View style={style.restaurantsFlatListView}>
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={restaurants}
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-            }}
+            contentContainerStyle={style.flatlistContainerStyle}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
@@ -126,11 +111,11 @@ const SearchScreen = props => {
                     <Text style={style.restaurantsTitle}>{item.title}</Text>
                     <View style={style.restaurantsRatingsHeart}>
                       <Image
-                        style={{width: 68, height: 12}}
+                        style={style.ratings}
                         source={require('../../../assets/img/ratings.png')}
                       />
                       <Image
-                        style={{width: 24, height: 24}}
+                        style={style.heart}
                         source={require('../../../assets/img/heart.png')}
                       />
                     </View>
