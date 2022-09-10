@@ -5,10 +5,10 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {ScrollView} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import data from '../../../assets/mockData/restaurants';
+import {images} from '../../core/constants/images';
 import styles from './restaurantDetailStyle';
-const RestaurantDetail = props => {
-  // const win = Dimensions.get('window');
 
+const RestaurantDetail = props => {
   const addToCart = (
     id2,
     title,
@@ -56,10 +56,7 @@ const RestaurantDetail = props => {
 
   return (
     <View style={styles.mainView}>
-      <Image
-        style={styles.restaurantImage}
-        source={require('../../../assets/img/restaurant1.png')}
-      />
+      <Image style={styles.restaurantImage} source={images.restaurantImage} />
 
       <Text
         adjustsFontSizeToFit={true}
@@ -67,7 +64,7 @@ const RestaurantDetail = props => {
         style={styles.restaurantName}>
         {restaurantName}
       </Text>
-      <ScrollView >
+      <ScrollView>
         <StatusBar translucent backgroundColor="transparent" />
 
         <View style={styles.secondPartOfScreen}>
@@ -75,14 +72,11 @@ const RestaurantDetail = props => {
             <View style={styles.row}>
               <Image
                 style={styles.locationImage}
-                source={require('../../../assets/img/location.png')}
+                source={images.locationIcon}
               />
               <Text style={styles.colorRed}>{location}</Text>
             </View>
-            <Image
-              style={styles.ratings}
-              source={require('../../../assets/img/ratings.png')}
-            />
+            <Image style={styles.ratings} source={images.ratings} />
           </View>
           <View style={styles.margin5}>
             <View style={styles.marginBottom}>
@@ -102,12 +96,10 @@ const RestaurantDetail = props => {
 
             <Text style={styles.adress}>Adress</Text>
             <View style={styles.rowSpaceBetwin}>
-              <Text numberOfLines={3} >
-                {adress}
-              </Text>
+              <Text numberOfLines={3}>{adress}</Text>
               <Image
                 style={styles.addressImage}
-                source={require('../../../assets/img/restaurant1.png')}
+                source={images.restaurantImage}
               />
             </View>
             <View style={styles.phoneEmailWebsiteView}>
@@ -127,7 +119,7 @@ const RestaurantDetail = props => {
           </View>
           <View style={styles.rowSpaceBetwin}>
             <Text style={styles.colorRed}>Menu</Text>
-            <Text style={{color: '#FBB816'}}>See all</Text>
+            <Text style={styles.seeAll}>See all</Text>
           </View>
 
           {restaurant.map(item =>
@@ -136,7 +128,7 @@ const RestaurantDetail = props => {
                 <View style={styles.firstMenuView}>
                   <View style={styles.secondMenuView}>
                     <Image
-                      source={require('../../../assets/img/restaurant1.png')}
+                      source={images.restaurantImage}
                       style={styles.menuImage}
                     />
                   </View>
@@ -178,7 +170,7 @@ const RestaurantDetail = props => {
                 <View style={styles.firstMenuView}>
                   <View style={styles.secondMenuView}>
                     <Image
-                      source={require('../../../assets/img/restaurant1.png')}
+                      source={images.restaurantImage}
                       style={styles.menuImage}
                     />
                   </View>

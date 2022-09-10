@@ -9,13 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import {connect} from 'react-redux';
+import {images} from '../../core/constants/images';
 import styles from './loginScreenStyle';
-const LoginScreen = props => {
-  const [userInfo, setuserInfo] = useState('');
 
-  const uid = props.userToken;
+const LoginScreen = ({userToken, reduxLogin}) => {
+  const uid = userToken;
   const navigation = useNavigation();
   useEffect(() => {
     GoogleSignin.configure({
@@ -25,19 +24,18 @@ const LoginScreen = props => {
 
       offlineAccess: true,
     });
-    console.log(userInfo);
   }, []);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const Login = () => {
+  const login = () => {
     console.log(email, 'email');
-    props.reduxLogin(email, password, false);
+    reduxLogin(email, password, false);
   };
 
   const googleLogin = () => {
-    props.reduxLogin(email, password, true);
+    reduxLogin(email, password, true);
   };
 
   const isVisible = useIsFocused();
@@ -48,18 +46,14 @@ const LoginScreen = props => {
       }
     }
   });
-  console.log(uid, 'uuiidd');
 
   return (
     <ImageBackground
-      source={require('../../../assets/img/background.png')}
-      style={{flex: 1}}
-      imageStyle={{opacity: 0.1}}>
-      <View style={{alignItems: 'center', marginTop: 35}}>
-        <Image
-          style={{width: 200, height: 200}}
-          source={require('../../../assets/img/foodie.png')}
-        />
+      source={images.background}
+      style={styles.flex1}
+      imageStyle={styles.imageBackgroundStyle}>
+      <View style={styles.foodieImageContainer}>
+        <Image style={styles.foodieImage} source={images.foodieLogo} />
       </View>
       <View style={styles.emailPasswordView}>
         <TextInput
@@ -82,7 +76,7 @@ const LoginScreen = props => {
           defaultValue={password}
         />
       </View>
-      <TouchableOpacity style={styles.loginTouchable} onPress={Login}>
+      <TouchableOpacity style={styles.loginTouchable} onPress={login}>
         <Text style={styles.loginText}>LOG IN</Text>
       </TouchableOpacity>
 
@@ -92,18 +86,18 @@ const LoginScreen = props => {
         <Text style={styles.signUpText}>Sign Up</Text>
       </TouchableOpacity>
 
-      <View style={{marginTop: 7}}>
+      <View style={styles.forgotPasswordContainer}>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </View>
       <View style={styles.socialAuthView}>
         <TouchableOpacity onPress={() => googleLogin()}>
-          <Image source={require('../../../assets/img/googleLogo.png')} />
+          <Image source={images.googleLogo} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image source={require('../../../assets/img/fbLogo.png')} />
+          <Image source={images.facebookLogo} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image source={require('../../../assets/img/appleLogo.png')} />
+          <Image source={images.appleLogo} />
         </TouchableOpacity>
       </View>
     </ImageBackground>

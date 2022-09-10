@@ -2,11 +2,12 @@ import geolocation from '@react-native-community/geolocation';
 import React, {useEffect, useState} from 'react';
 import {Alert, Image, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
+import {images} from '../../core/constants/images';
+import {baseurl} from '../../network/getAddress';
 import style from './locationStyle';
 
 const Location = () => {
   const [coords, setCoords] = useState({lat: 0, long: 0});
-
   const [address, setAddress] = useState([]);
 
   const dispatch = useDispatch();
@@ -30,12 +31,11 @@ const Location = () => {
   };
 
   const findAddress = async (latitude, longitude) => {
-    let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
-    console.log('lat', latitude, 'long', longitude);
+    const endpoint = `reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+    const url = `${baseurl}${endpoint}`;
 
     const response = await fetch(url);
     const data = await response.json();
-    console.log('data $$$', data);
 
     setAddress({
       building: data.address.building,
@@ -59,10 +59,9 @@ const Location = () => {
     }
   }, [coords]);
 
-  // console.log(coords);
   return (
-    <View style={style.view}>
-      <Image source={require('../../../assets/img/location.png')} />
+    <View style={style.container}>
+      <Image source={images.locationIcon} />
       <Text style={style.address}>{address.city}</Text>
     </View>
   );

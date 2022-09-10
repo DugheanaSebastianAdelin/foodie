@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     fontFamily: 'DM Sans',
   },
   itemView: {flexGrow: 1, flexShrink: 0, flexBasis: 0},
+  seeAll: {color: '#FBB816'},
 });
 
 export default styles;

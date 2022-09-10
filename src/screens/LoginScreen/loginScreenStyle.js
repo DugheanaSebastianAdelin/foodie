@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 28,
     height: '9%',
-
   },
   textInputEmailPassword: {
     marginLeft: 16,
@@ -68,6 +67,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 5,
     marginTop: 15,
+  },
+  foodieImage: {
+    width: 200,
+    height: 200,
+  },
+  flex1: {
+    flex: 1,
+  },
+  forgotPasswordContainer: {
+    marginTop: 7,
+  },
+  foodieImageContainer: {
+    alignItems: 'center',
+    marginTop: 35,
+  },
+  imageBackgroundStyle: {
+    opacity: 0.1,
   },
 });
 

@@ -7,22 +7,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {FlatList, ScrollView, TextInput} from 'react-native-gesture-handler';
+import {FlatList, TextInput} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import data2 from '../../../assets/mockData/restaurants';
 import Location from '../../components/Location/Location';
+import {images} from '../../core/constants/images';
 import useRestaurants from '../../hooks/useRestaurants';
 import style from './searchScreenStyle';
-const SearchScreen = props => {
+
+const SearchScreen = ({displayName, email, reduxSignOut}) => {
   const [getRecommandedDishes, data] = useRestaurants();
-  console.log(data, 'dataaa$$$');
-  const name = props.displayName;
-  const email = props.email;
+  const name = displayName;
 
   const navigation = useNavigation();
 
   const signOut = () => {
-    props.reduxSignOut();
+    reduxSignOut();
 
     navigation.navigate('Login');
   };
@@ -44,9 +44,9 @@ const SearchScreen = props => {
   return (
     <View style={style.mainView}>
       <ImageBackground
-        style={{flex: 1}}
-        source={require('../../../assets/img/background.png')}
-        imageStyle={{opacity: 0.1}}>
+        style={style.flex1}
+        source={images.background}
+        imageStyle={style.backgroundImageStyle}>
         <View>
           <View style={style.row}>
             <Text style={style.welcomeText}>{renderText()}</Text>
@@ -61,7 +61,7 @@ const SearchScreen = props => {
           <View style={style.row}>
             <View style={style.inputView}>
               <View style={style.searchIconTextView}>
-                <Image source={require('../../../assets/img/searchIcon.png')} />
+                <Image source={images.searchIcon} />
                 <TextInput
                   style={style.textInput}
                   placeholder="Search for restaurants"
@@ -70,7 +70,7 @@ const SearchScreen = props => {
             </View>
 
             <TouchableOpacity style={style.filterTouchable}>
-              <Image source={require('../../../assets/img/filter.png')} />
+              <Image source={images.filter} />
             </TouchableOpacity>
           </View>
           <View style={style.filtersView}>
@@ -106,17 +106,17 @@ const SearchScreen = props => {
                   <View style={style.restaurantsView}>
                     <Image
                       style={style.restaurantsImage}
-                      source={require('../../../assets/img/restaurant1.png')}></Image>
+                      source={images.restaurantImage}></Image>
 
                     <Text style={style.restaurantsTitle}>{item.title}</Text>
                     <View style={style.restaurantsRatingsHeart}>
                       <Image
                         style={style.ratings}
-                        source={require('../../../assets/img/ratings.png')}
+                        source={images.restaurantRating}
                       />
                       <Image
                         style={style.heart}
-                        source={require('../../../assets/img/heart.png')}
+                        source={images.restaurantFavorite}
                       />
                     </View>
                   </View>
@@ -149,9 +149,7 @@ const SearchScreen = props => {
                     <View style={style.rdPriceHeartView}>
                       <Text style={style.rdPrice}>100</Text>
                       <TouchableOpacity onPress={() => selectItem(item)}>
-                        <Image
-                          source={require('../../../assets/img/heart-small.png')}
-                        />
+                        <Image source={images.rdFavorite} />
                       </TouchableOpacity>
                     </View>
                   </View>

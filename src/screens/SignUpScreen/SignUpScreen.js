@@ -10,11 +10,11 @@ import {
   View,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {images} from '../../core/constants/images';
 import styles from '../LoginScreen/loginScreenStyle';
-const SignUpScreen = props => {
-  const [userInfo, setuserInfo] = useState('');
 
-  const uid = props.userToken;
+const SignUpScreen = ({userToken, reduxLogin, reduxRegister}) => {
+  const uid = userToken;
   const navigation = useNavigation();
   useEffect(() => {
     GoogleSignin.configure({
@@ -24,7 +24,6 @@ const SignUpScreen = props => {
 
       offlineAccess: true,
     });
-    console.log(userInfo);
   }, []);
 
   const [email, setEmail] = useState('');
@@ -32,15 +31,15 @@ const SignUpScreen = props => {
 
   const Login = () => {
     console.log(email, 'email');
-    props.reduxLogin(email, password, false);
+    reduxLogin(email, password, false);
   };
 
   const googleLogin = () => {
-    props.reduxLogin(email, password, true);
+    reduxLogin(email, password, true);
   };
 
   const Register = () => {
-    return props.reduxRegister(email, password);
+    return reduxRegister(email, password);
   };
 
   const isVisible = useIsFocused();
@@ -55,14 +54,11 @@ const SignUpScreen = props => {
 
   return (
     <ImageBackground
-      source={require('../../../assets/img/background.png')}
-      style={{flex: 1}}
-      imageStyle={{opacity: 0.1}}>
-      <View style={{alignItems: 'center', marginTop: 35}}>
-        <Image
-          style={{width: 200, height: 200}}
-          source={require('../../../assets/img/foodie.png')}
-        />
+      source={images.background}
+      style={styles.flex1}
+      imageStyle={styles.imageBackgroundStyle}>
+      <View style={styles.foodieImageContainer}>
+        <Image style={styles.foodieImage} source={images.foodieLogo} />
       </View>
       <View style={styles.emailPasswordView}>
         <TextInput
@@ -93,13 +89,13 @@ const SignUpScreen = props => {
 
       <View style={styles.socialAuthView}>
         <TouchableOpacity onPress={() => googleLogin()}>
-          <Image source={require('../../../assets/img/googleLogo.png')} />
+          <Image source={images.googleLogo} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image source={require('../../../assets/img/fbLogo.png')} />
+          <Image source={images.facebookLogo} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image source={require('../../../assets/img/appleLogo.png')} />
+          <Image source={images.appleLogo} />
         </TouchableOpacity>
       </View>
     </ImageBackground>

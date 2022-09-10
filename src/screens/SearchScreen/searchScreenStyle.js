@@ -119,12 +119,12 @@ const style = StyleSheet.create({
   },
   restaurantsFlatListView: {
     marginHorizontal: 20,
-
     height: '60%',
-    justifyContent: 'center', //Centered horizontally
-    alignItems: 'center', //Centered vertically
-    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  flex1: {flex: 1},
+  backgroundImageStyle: {opacity: 0.1},
 });
 
 export default style;
