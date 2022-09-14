@@ -36,7 +36,6 @@ const style = StyleSheet.create({
   restaurantsView: {
     margin: 10,
     backgroundColor: 'white',
-
     borderRadius: 16,
     marginTop: 20,
     shadowColor: 'rgba(32, 32, 32, 0.05)',
@@ -111,17 +110,17 @@ const style = StyleSheet.create({
     width: 24,
     height: 24,
   },
-  flatlistContainerStyle: {
+
+  restaurantsFlatListView: {
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
+  },
+  flatlistContainerStyle: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-  },
-  restaurantsFlatListView: {
-    marginHorizontal: 20,
-    height: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   flex1: {flex: 1},
   backgroundImageStyle: {opacity: 0.1},

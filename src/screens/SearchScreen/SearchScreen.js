@@ -126,7 +126,7 @@ const SearchScreen = ({displayName, email, reduxSignOut}) => {
             keyExtractor={Restaurant => Restaurant.id}
           />
         </View>
-        <View>
+        <View >
           <Text style={style.recommandedDishesHeader}>Recommanded Dishes</Text>
 
           <FlatList
