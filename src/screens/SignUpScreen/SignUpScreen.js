@@ -30,7 +30,6 @@ const SignUpScreen = ({userToken, reduxLogin, reduxRegister}) => {
   const [password, setPassword] = useState('');
 
   const Login = () => {
-    console.log(email, 'email');
     reduxLogin(email, password, false);
   };
 
@@ -103,7 +102,6 @@ const SignUpScreen = ({userToken, reduxLogin, reduxRegister}) => {
 };
 
 const mapStateToProps = state => {
-  console.log('state@$%#####', state);
   return {userToken: state.auth.userToken};
 };
 

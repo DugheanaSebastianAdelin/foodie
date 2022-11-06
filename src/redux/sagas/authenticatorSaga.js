@@ -1,7 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {put, takeLatest} from 'redux-saga/effects';
+import {call, put, takeLatest} from 'redux-saga/effects';
 
 const loginWithEmail = async (email, password) => {
   return await auth().signInWithEmailAndPassword(email, password);
@@ -12,7 +13,8 @@ const loginWithGoogle = async () => {
 
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
+  // console.log(googleCredential,'google credential')
+  //take token from here
   // Sign-in the user with the credential
   return auth().signInWithCredential(googleCredential);
 };
@@ -25,6 +27,14 @@ const register2 = async (email, password) => {
     });
 };
 
+async function storeToken(token) {
+  try {
+    await AsyncStorage.setItem('@token', token);
+  } catch (error) {
+    console.log('AsyncStorage error during token store:', error);
+  }
+}
+
 function* login(action) {
   try {
     yield put({
@@ -34,6 +44,8 @@ function* login(action) {
     const data = action.payload.loginWithGoogle
       ? yield loginWithGoogle()
       : yield loginWithEmail(action.payload.email, action.payload.password);
+
+    yield call(storeToken, data.user.uid);
 
     if (data.error) {
       yield put({
@@ -58,7 +70,7 @@ function* login(action) {
         payload: '',
       });
     }
-    console.log(action, 'action');
+
     yield put({
       type: 'SET_LOADING',
       payload: false,
@@ -70,6 +82,8 @@ function* login(action) {
       payload: error,
     });
   }
+
+  yield put({type: 'LOGIN_SUCCESS'});
 }
 
 function* register(action) {
@@ -78,14 +92,11 @@ function* register(action) {
       type: 'SET_LOADING',
       payload: true,
     });
-    console.log(action.payload, 'response');
 
     const response = yield register2(
       action.payload.email,
       action.payload.password,
     );
-    // console.log(action.payload, 'response');
-    console.log(response, 'responseeeeeeeeee222');
 
     yield firestore()
       .collection('users')
@@ -98,10 +109,6 @@ function* register(action) {
       .doc(response.user.uid)
       .get();
     const newData = data.getData();
-    console.log(newData, 'newData $$$');
-    console.log(data, '@@@ data');
-
-    console.log(data.email, '@@@ data');
 
     yield put({
       type: 'LOGIN_WITH_EMAIL_AND_PASSWORD',
@@ -112,9 +119,6 @@ function* register(action) {
         // email: data.user.email,
       },
     });
-    console.log(action, 'action');
-    console.log(action.payload.email, 'response');
-    // console.log(data.user.uid, 'uuiddd REGISTERRR');
 
     yield put({
       type: 'REGISTER',

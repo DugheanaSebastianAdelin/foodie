@@ -30,7 +30,7 @@ const LoginScreen = ({userToken, reduxLogin}) => {
   const [password, setPassword] = useState('');
 
   const login = () => {
-    console.log(email, 'email');
+    // console.log(email, 'email');
     reduxLogin(email, password, false);
   };
 
@@ -38,8 +38,21 @@ const LoginScreen = ({userToken, reduxLogin}) => {
     reduxLogin(email, password, true);
   };
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@token');
+      // console.log(value);
+      if (value !== null) {
+        // value previously stored
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
   const isVisible = useIsFocused();
   useEffect(() => {
+    // console.log(getData(), 'test');
     if (isVisible) {
       if (uid != '' && uid) {
         navigation.navigate('SearchScreen');
@@ -105,7 +118,7 @@ const LoginScreen = ({userToken, reduxLogin}) => {
 };
 
 const mapStateToProps = state => {
-  console.log('state@$%#####', state);
+  // console.log('state@$%#####', state);
   return {userToken: state.auth.userToken};
 };
 

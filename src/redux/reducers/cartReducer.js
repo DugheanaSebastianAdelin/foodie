@@ -7,17 +7,14 @@ let cartReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'ADD_TO_CART': {
       let newState = {...state};
-      console.log(action.payload, 'payloaddd');
-      if (action.payload.checkboxValue == true) {
-        console.log('ADD TO CART');
 
+      if (action.payload.checkboxValue == true) {
         newState.selectedItems = {
           items: [...newState.selectedItems.items, action.payload],
 
           restaurantName: action.payload.restaurantName,
         };
       } else {
-        console.log('REMOVE FROM CART');
         newState.selectedItems = {
           items: [
             ...newState.selectedItems.items.filter(
@@ -27,7 +24,7 @@ let cartReducer = (state = defaultState, action) => {
           restaurantName: action.payload.restaurantName,
         };
       }
-      console.log(newState, '👉');
+
       return newState;
     }
 

@@ -1,5 +1,5 @@
 import {useRoute} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Image, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -44,11 +44,7 @@ const RestaurantDetail = props => {
   const phone = restaurantDetails.phone;
   const email = restaurantDetails.email;
   const website = restaurantDetails.website;
-
   const cartItems = props.itemId;
-  useEffect(() => {
-    console.log(cartItems, 'cart itemssssssssssssssssssssssss');
-  });
 
   const isFoodInCart = (food, cartItems) => {
     return cartItems.find(item => item.id == food.id) ? true : false;
@@ -210,7 +206,6 @@ const RestaurantDetail = props => {
   );
 };
 const mapStateToProps = state => {
-  console.log('state@$%#####22222222222333333333333333', state);
   return {itemId: state.cart.selectedItems.items};
 };
 

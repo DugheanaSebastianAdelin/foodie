@@ -15,16 +15,14 @@ import {images} from '../../core/constants/images';
 import useRestaurants from '../../hooks/useRestaurants';
 import style from './searchScreenStyle';
 
-const SearchScreen = ({displayName, email, reduxSignOut}) => {
+const SearchScreen = ({displayName, email}) => {
   const [getRecommandedDishes, data] = useRestaurants();
   const name = displayName;
 
   const navigation = useNavigation();
 
-  const signOut = () => {
-    reduxSignOut();
-
-    navigation.navigate('Login');
+  const burgerMenu = () => {
+    navigation.navigate('BurgerMenu');
   };
 
   const restaurants = data2.restaurants;
@@ -49,11 +47,15 @@ const SearchScreen = ({displayName, email, reduxSignOut}) => {
         imageStyle={style.backgroundImageStyle}>
         <View>
           <View style={style.row}>
-            <Text style={style.welcomeText}>{renderText()}</Text>
-
-            <TouchableOpacity onPress={signOut} style={{marginLeft: 10}}>
-              <Text>OUT</Text>
+            <TouchableOpacity onPress={burgerMenu}>
+              <Image
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/5949/5949947.png',
+                }}
+                style={{width: 25, height: 25}}
+              />
             </TouchableOpacity>
+            <Text style={style.welcomeText}>{renderText()}</Text>
           </View>
 
           <Location />
@@ -126,7 +128,7 @@ const SearchScreen = ({displayName, email, reduxSignOut}) => {
             keyExtractor={Restaurant => Restaurant.id}
           />
         </View>
-        <View >
+        <View>
           <Text style={style.recommandedDishesHeader}>Recommanded Dishes</Text>
 
           <FlatList
@@ -166,7 +168,6 @@ const SearchScreen = ({displayName, email, reduxSignOut}) => {
 };
 
 const mapStateToProps = state => {
-  console.log('state@$%#####22222222222', state);
   return {
     displayName: state.auth.userProfile,
     email: state.auth.email,

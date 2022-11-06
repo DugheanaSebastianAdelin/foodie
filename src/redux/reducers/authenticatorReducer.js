@@ -1,5 +1,4 @@
 const initialState = {
-  userProfile: {},
   userToken: '',
   email: '',
   error: '',
@@ -11,7 +10,6 @@ const authenticatorReducer = (state = initialState, action) => {
     case 'LOGIN_WITH_EMAIL_AND_PASSWORD': {
       return {
         ...state,
-        userProfile: action.payload.userProfile,
         userToken: action.payload.userToken,
         email: action.payload.email,
       };
@@ -19,7 +17,6 @@ const authenticatorReducer = (state = initialState, action) => {
     case 'REGISTER_WITH_EMAIL_AND_PASSWORD': {
       return {
         ...state,
-        userProfile: action.payload.userProfile,
         userToken: action.payload.userToken,
         email: action.payload.email,
       };
@@ -28,7 +25,6 @@ const authenticatorReducer = (state = initialState, action) => {
     case 'SIGN_OUT': {
       return {
         ...state,
-        userProfile: initialState.userProfile,
         userToken: initialState.userToken,
         email: initialState.email,
       };

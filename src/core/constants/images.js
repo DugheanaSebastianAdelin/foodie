@@ -11,4 +11,5 @@ export const images = {
   restaurantFavorite: require('../../../assets/img/heart.png'),
   rdFavorite: require('../../../assets/img/heart-small.png'),
   locationIcon: require('../../../assets/img/location.png'),
+  backButton:require('../../../assets/img/back.png'),
 };

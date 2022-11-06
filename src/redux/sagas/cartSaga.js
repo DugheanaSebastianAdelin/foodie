@@ -8,7 +8,6 @@ function* addToCart(action) {
     });
     const data = action.payload;
 
-    console.log(data, 'dataaaaaaaaaa');
     yield put({
       type: 'ADD_TO_CART',
       payload: {
